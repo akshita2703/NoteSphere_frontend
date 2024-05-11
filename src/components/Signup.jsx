@@ -13,7 +13,7 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:5500/user/auth/signup', { name, email, password })
+    axios.post('https://note-sphere-backend.vercel.app/user/auth/signup', { name, email, password })
       .then((result) => {
         console.log(result);
         navigate('/login');

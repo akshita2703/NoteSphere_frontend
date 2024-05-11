@@ -12,7 +12,7 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:5500/user/auth/login", { email, password })
+    axios.post("https://note-sphere-backend.vercel.app/user/auth/login", { email, password })
       .then((result) => {
         console.log(result);
         localStorage.setItem('token', result.data.token);

@@ -17,7 +17,7 @@ const Foreground = () => {
         Authorization: `Bearer ${token}`
       }
 
-      const res = await axios.get('http://localhost:5500/note/read', { headers: header })
+      const res = await axios.get('https://note-sphere-backend.vercel.app/note/read', { headers: header })
       setData1(res.data)
     } catch (error) {
       console.log(error)

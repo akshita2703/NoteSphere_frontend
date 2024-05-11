@@ -16,7 +16,7 @@ const Card = ({ data, reference }) => {
             Authorization: `Bearer ${token}`
         };
 
-        axios.delete(`http://localhost:5500/note/notes/${data._id}`, { headers })
+        axios.delete(`https://note-sphere-backend.vercel.app/note/notes/${data._id}`, { headers })
             .then((result) => {
                 console.log(result);
                 alert('Document Deleted Successfully');

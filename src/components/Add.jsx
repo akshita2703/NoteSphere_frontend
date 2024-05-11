@@ -21,7 +21,7 @@ const Add = () => {
             Authorization: `Bearer ${token}`
         };
 
-        axios.post("http://localhost:5500/note/create", reqBody, { headers }).then((result) => {
+        axios.post("https://note-sphere-backend.vercel.app/note/create", reqBody, { headers }).then((result) => {
             console.log(result);
             alert("Document Added Successfully");
         }
