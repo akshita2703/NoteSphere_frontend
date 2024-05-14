@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import img4 from "../assets/img4.jpg";
+import { useLocation } from "react-router-dom";
 
 const Add = () => {
+    const location = useLocation();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     // const [downloadable, setDownloadable] = useState(false);
+    console.log(location.search);
+    let id1 = location.search.split("=")[1];
+    console.log(id1)
 
     const token = localStorage.getItem("token");
 
@@ -15,20 +20,33 @@ const Add = () => {
             title,
             description
         };
-        
+         const headers = {
+                Authorization: `Bearer ${token}`
+            };
 
-        const headers = {
-            Authorization: `Bearer ${token}`
-        };
+        if(!id1){
+           
+            axios.post("https://note-sphere-backend.vercel.app/note/create", reqBody, { headers }).then((result) => {
+                console.log(result);
+                alert("Document Added Successfully");
+            }
+            ).catch(err => {
+                console.log(err)
+                alert("Error in Adding Document");
+            });
 
-        axios.post("https://note-sphere-backend.vercel.app/note/create", reqBody, { headers }).then((result) => {
-            console.log(result);
-            alert("Document Added Successfully");
+        }else{
+            axios.put(`https://note-sphere-backend.vercel.app/note/update/${id1}`,reqBody,{headers}).then((result)=>{
+                console.log(result);
+                alert("Document updated");
+            }).catch((err)=>{
+                console.log(err);
+                alert('Error updating it');
+            });
+
         }
-        ).catch(err => {
-            console.log(err)
-            alert("Error in Adding Document");
-        });
+
+        
     };
 
     return (

@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FaRegFileLines } from 'react-icons/fa6';
 import { motion } from 'framer-motion';
+import { MdEdit } from "react-icons/md";
 import { MdDeleteOutline } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+
 
 const Card = ({ data, reference }) => {
+    const navigate = useNavigate();
     const [isDeleted, setIsDeleted] = useState(false);
 
     const handleDelete = (e) => {
@@ -26,6 +30,7 @@ const Card = ({ data, reference }) => {
                 console.log(err);
                 alert('Error in Deleting Document');
             });
+        
     };
 
     if (isDeleted) {
@@ -43,6 +48,9 @@ const Card = ({ data, reference }) => {
             <div className="w-50 h-48 mt-2 rounded-md p-2 bg-zinc-700/100">
                 <p className="text-xs">{data.description}</p>
             </div>
+             <button onClick={() => navigate(`/Add?id=${data._id}`)} className="absolute mt-1 p-1 right-8 text-red-500 bg-transparent border-none">
+                <MdEdit />
+            </button>
             <button onClick={handleDelete} className="absolute mt-1 p-1 right-2 text-red-500 bg-transparent border-none">
                 <MdDeleteOutline />
             </button>
