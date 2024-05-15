@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import img4 from "../assets/img4.jpg";
 import { useLocation } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 const Add = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -14,8 +15,9 @@ const Add = () => {
 
     const token = localStorage.getItem("token");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
+       
         const reqBody = {
             title,
             description
@@ -28,7 +30,8 @@ const Add = () => {
            
             axios.post("https://note-sphere-backend.vercel.app/note/create", reqBody, { headers }).then((result) => {
                 console.log(result);
-                alert("Document Added Successfully");
+                // alert("Document Added Successfully");
+                navigate('/Home');
             }
             ).catch(err => {
                 console.log(err)
@@ -38,13 +41,18 @@ const Add = () => {
         }else{
             axios.put(`https://note-sphere-backend.vercel.app/note/update/${id1}`,reqBody,{headers}).then((result)=>{
                 console.log(result);
-                alert("Document updated");
-            }).catch((err)=>{
+                // alert("Document updated");
+                 navigate('/Home');
+            }
+            ).catch((err)=>{
                 console.log(err);
                 alert('Error updating it');
             });
 
         }
+       
+
+        
 
         
     };
@@ -65,7 +73,7 @@ const Add = () => {
                             <input type="checkbox" checked={downloadable} onChange={(e) => setDownloadable(e.target.checked)} className="p-2" />
                             <label htmlFor="" className="text-[#cb8a76] text-2xl">Download Button</label>
                         </div> */}
-                        <button type="submit" className="bg-zinc-800 text-white p-1 w-20 rounded-lg border outline-transparent border-black outline-1">Submit</button>
+                        <button  type="submit" className="bg-zinc-800 text-white p-1 w-20 rounded-lg border outline-transparent border-black outline-1">Submit</button>
                     </form>
                 </div>
             </div>
